@@ -1,0 +1,36 @@
+server:
+    port: 8080
+
+logging:
+    level:
+        org:
+            hibernate:
+                ## SQL 로깅
+                SQL: debug
+                orm:
+                    jdbc:
+                        ## SQL 로깅: 파라미터
+                        bind: trace
+
+spring:
+    application:
+        name: jpa
+    datasource:
+        url: jdbc:mysql://localhost:3306/jpa
+        username: root
+        password: 1234
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+            naming:
+                ## 하이버네이트 네이밍 전략: 코드상 리터럴 사용
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        properties:
+            hibernate:
+                ## SQL 포맷터
+                format_sql: true
+                ## SQL 방언
+                dialect: org.hibernate.dialect.MySQLDialect
+                ## SQL 사용자 설정 코맨트 출력
+                use_sql_comments: true
