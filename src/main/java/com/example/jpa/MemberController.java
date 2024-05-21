@@ -1,6 +1,7 @@
 package com.example.jpa;
 
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +14,8 @@ public class MemberController {
     @PersistenceUnit
     EntityManagerFactory emf;
 
-//    @PersistenceContext
-//    EntityManager em;
+    @PersistenceContext
+    EntityManager em;
 
     @GetMapping
     public void createMember() {
@@ -23,8 +24,8 @@ public class MemberController {
 
         tx.begin();
         Member member = new Member();
-        member.setId("M1");
-        member.setUsername("회원1");
+        member.setUserId("M1");
+        member.setUserName("회원1");
         em.persist(member);
         tx.commit();
     }
@@ -46,7 +47,7 @@ public class MemberController {
 
         tx.begin();
         Member member = em.find(Member.class, "M1");
-        member.setUsername("바뀐회원1");
+        member.setUserName("바뀐회원1");
         tx.commit();
     }
 
@@ -54,6 +55,19 @@ public class MemberController {
     public void changeFlushMode() {
         EntityManager em = emf.createEntityManager();
         em.setFlushMode(FlushModeType.AUTO);
+    }
+
+    @GetMapping("/pk_identity")
+    public void pk_identity(){
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        tx.begin();
+        Member member = new Member();
+        member.setUserName("TEST");
+        em.persist(member);
+        System.out.println("member.getId() = " + member.getId());
+        tx.commit();
     }
 }
 

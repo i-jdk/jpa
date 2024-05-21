@@ -1,38 +1,45 @@
 package com.example.jpa;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
+import java.util.Date;
+
+@Entity(name = "Member")
+@Getter
+@Setter
+@Table(name = "Member"
+//        , uniqueConstraints = {
+//        @UniqueConstraint(
+//                name = "NAME_AGE_UNIQUE",
+//                columnNames = {"NAME, AGE"}
+//        )
+//}
+)
 public class Member {
     @Id
-    String id;
-    String username;
-    int age;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public String getId() {
-        return id;
-    }
+    @Column
+    private String userId;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    @Column(nullable = false, length = 10, unique = true)
+    private String userName;
 
-    public String getUsername() {
-        return username;
-    }
+    @Column(unique = true)
+    private int age;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
 
-    public int getAge() {
-        return age;
-    }
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
+
+    @Lob
+    private String description;
 }

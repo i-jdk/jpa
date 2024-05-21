@@ -24,8 +24,9 @@ spring:
         hibernate:
             ddl-auto: create-drop
             naming:
-                ## 하이버네이트 네이밍 전략: 코드상 리터럴 사용
-                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+                ## 하이버네이트 네이밍 전략
+                implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+                #physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         properties:
             hibernate:
                 ## SQL 포맷터
