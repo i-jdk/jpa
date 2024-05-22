@@ -42,4 +42,17 @@ public class Member {
 
     @Lob
     private String description;
+
+    private String fullName;
+
+    @Transient
+    private String firstName;
+
+    @Transient
+    private String lastName;
+
+    @Access(AccessType.PROPERTY)
+    public String getFullName(){
+        return firstName + lastName;
+    }
 }
